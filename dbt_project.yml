@@ -71,7 +71,7 @@ vars:
   # For filtering all event data, if necessary
   fullstory_min_event_time: "1900-01-01 00:00:00" # Inclusive
 
-  fullstory_events_types:
+  fullstory_event_types:
     [
       "background",
       "change",
