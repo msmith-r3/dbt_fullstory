@@ -10,7 +10,7 @@ select
     count(case when sessions.total_web_events > 0 then 1 end) as total_web_sessions,
     sum(sessions.total_mobile_app_events) as total_mobile_app_events,
     count(case when sessions.total_mobile_app_events > 0 then 1 end) as total_mobile_app_sessions,
-    {% for type in var("fullstory_events_types") %}
+    {% for type in var("fullstory_event_types") %}
     sum(sessions.total_{{ type }}_events) as total_{{ type }}_events{% if not loop.last %},{% endif %}
     {% endfor %}
 from {{ ref("int_sessions") }} as sessions
