@@ -21,7 +21,7 @@ select
         dbt.any_value("events.session_id"),
         "'?url_source=DD'"
     ]) }} as replay_url,
-    {% for type in var("fullstory_events_types") -%}
+    {% for type in var("fullstory_event_types") -%}
     count(case when events.event_type = '{{ type }}' then 1 end) as total_{{ type }}_events{% if not loop.last %},{% endif %}
     {% endfor %},
     count(case when events.source_type = 'web' then 1 end) as total_web_events,
