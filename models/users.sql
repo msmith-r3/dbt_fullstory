@@ -31,7 +31,7 @@ select
     base.total_web_sessions,
     base.total_mobile_app_events,
     base.total_mobile_app_sessions,
-    {% for type in var("fullstory_events_types") -%}
+    {% for type in var("fullstory_event_types") -%}
     base.total_{{ type }}_events{% if not loop.last %},{% endif %}
     {% endfor %}
 from {{ ref("int_users") }} as base
