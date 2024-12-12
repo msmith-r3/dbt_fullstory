@@ -1,3 +1,8 @@
+{{
+    config(
+        materialized='table'
+    )
+}}
 select
   devices.id as device_id,
   devices.user_agent as last_device_user_agent,
