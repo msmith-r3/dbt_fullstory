@@ -227,13 +227,13 @@ select
                 },
                 {
                     "name": "event_definition_id",
-                    "path": "$.target.event_definition_id",
+                    "path": "$.event_definition_id",
                     "skip_parse": var("fullstory_skip_json_parse", False),
                     "cast_as": dbt.type_string(),
                 },
                 {
                     "name": "additional_event_definition_ids",
-                    "path": "$.target.additional_event_definition_ids",
+                    "path": "$.additional_event_definition_ids",
                     "array": true,
                     "skip_parse": var("fullstory_skip_json_parse", False),
                 },
