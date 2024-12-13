@@ -37,6 +37,12 @@ select
             "source_properties",
             [
                 {
+                    "name": "page_definition_id",
+                    "path": "$.page_definition_id",
+                    "skip_parse": var("fullstory_skip_json_parse", False),
+                    "cast_as": dbt.type_string(),
+                },
+                {
                     "name": "device_user_agent",
                     "path": "$.user_agent.raw_user_agent",
                     "skip_parse": var("fullstory_skip_json_parse", False),
