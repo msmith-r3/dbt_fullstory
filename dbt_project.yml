@@ -55,6 +55,12 @@ models:
       +sort: updated_time  
       +unique_key: event_id
 
+    sessions:
+      +materialized: incremental
+      +dist: full_session_id
+      +sort: updated_time  
+      +unique_key: full_session_id
+
   +persist_docs:
     columns: true
     relation: true
