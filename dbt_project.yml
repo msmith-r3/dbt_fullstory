@@ -46,8 +46,8 @@ models:
     # or use in other dbt packages.
     staging:
       +materialized: ephemeral
-    intermediate:
-      +materialized: ephemeral
+    #intermediate:
+    #  +materialized: ephemeral
 
     events:
       +materialized: incremental
@@ -61,11 +61,12 @@ models:
       +sort: updated_time  
       +unique_key: full_session_id
 
-    #int_sessions:
-    #  +materialized: incremental
-    #  +dist: full_session_id
-    #  +sort: updated_time  
-    #  +unique_key: full_session_id
+    intermediate:
+      int_sessions:
+        +materialized: incremental
+        +dist: full_session_id
+        +sort: updated_time  
+        +unique_key: full_session_id
 
   +persist_docs:
     columns: true
