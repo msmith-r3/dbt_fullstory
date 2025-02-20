@@ -39,6 +39,6 @@ left outer join
 where
     events.full_session_id is not null
     {% if is_incremental() %}
-    AND cast(base.updated_time as timestamp) >= current_timestamp - {{ var("fullstory_incremental_interval") }}
+    AND cast(events.updated_time as timestamp) >= current_timestamp - {{ var("fullstory_incremental_interval") }}
     {% endif %}
 group by events.full_session_id
