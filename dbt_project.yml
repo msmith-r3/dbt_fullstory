@@ -74,7 +74,8 @@ models:
 
 vars:
   dbt_date:time_zone: Etc/UTC
-  fullstory_incremental_interval: INTERVAL '8' DAY
+  #fullstory_incremental_interval: INTERVAL '8' DAY
+  fullstory_incremental_interval_hours: 192 # 8 days
   fullstory_replay_host: app.fullstory.com  
   fullstory_events_database: fullstory
   fullstory_events_schema: fullstory_o_4jv7_eu1
