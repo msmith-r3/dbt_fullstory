@@ -38,7 +38,11 @@ left outer join
         events.device_id = users.device_id
 where
     events.full_session_id is not null
-    {% if is_incremental() %}
+    #{% if is_incremental() %}
+    #and {{ dbt.cast("events.event_time", api.Column.translate_type("datetime")) }} >= {{ dbt.dateadd(datepart="hour", interval=-1 * var("fullstory_incremental_interval_hours", 7 * 24), from_date_or_timestamp=dbt.current_timestamp()) }}
+    #{% endif %}
+
+    {# {% if is_incremental() %} #}
     and {{ dbt.cast("events.event_time", api.Column.translate_type("datetime")) }} >= {{ dbt.dateadd(datepart="hour", interval=-1 * var("fullstory_incremental_interval_hours", 7 * 24), from_date_or_timestamp=dbt.current_timestamp()) }}
-    {% endif %}
+    {# {% endif %} #}    
 group by events.full_session_id
