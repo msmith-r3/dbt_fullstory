@@ -4,7 +4,7 @@
     )
 }}
 select
-    events.full_session_id as full_session_id,
+    {{ dbt.concat(["events.device_id", "':'", "events.session_id"]) }} as full_session_id,
     {{ dbt.any_value("users.user_id") }} as user_id,
     {{ dbt.any_value("events.device_id") }} as device_id,
     {{ dbt.any_value("events.session_id") }} as session_id,
@@ -17,7 +17,7 @@ select
         distinct case when events.event_type = 'navigate' then events.event_id end
     ) as total_page_views,
     count(
-        distinct case when events.event_type = 'navigate' then events.url_full_url end
+        distinct case when events.event_type = 'navigate' then events.source_properties.url_full_url end
     ) as total_unique_urls,
     {{ dbt.concat([
         get_replay_url_path(),
@@ -37,8 +37,8 @@ left outer join
         users.desc_row_num = 1 and
         events.device_id = users.device_id
 where
-    events.full_session_id is not null
+    {{ dbt.concat(["events.device_id", "':'", "events.session_id"]) }} is not null
     {# {% if is_incremental() %} #}
     and {{ dbt.cast("events.event_time", api.Column.translate_type("datetime")) }} >= {{ dbt.dateadd(datepart="hour", interval=-1 * var("fullstory_incremental_interval_hours", 7 * 24), from_date_or_timestamp=dbt.current_timestamp()) }}
     {# {% endif %} #}    
-group by events.full_session_id
+group by {{ dbt.concat(["events.device_id", "':'", "events.session_id"]) }}
