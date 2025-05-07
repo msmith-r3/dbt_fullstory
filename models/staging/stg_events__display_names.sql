@@ -1,14 +1,14 @@
 select
-    full_session_id,
+    {{ dbt.concat(["device_id", "':'", "session_id"]) }} as full_session_id,,
     session_id,
     device_id,
     view_id,
     event_time,
     updated_time,
     processed_time,
-    user_display_name,
+    event_properties.user_display_name,
     row_number() over (
-        partition by full_session_id
+        partition by {{ dbt.concat(["device_id", "':'", "session_id"]) }}
         order by
             event_time desc,
             updated_time desc,
@@ -16,4 +16,4 @@ select
     ) as desc_row_num
 from {{ ref("events") }}
 where
-    user_display_name is not null
+    event_properties.user_display_name is not null
