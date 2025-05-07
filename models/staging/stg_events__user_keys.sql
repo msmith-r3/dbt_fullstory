@@ -1,5 +1,5 @@
 select
-    user_id,
+    event_properties.user_id as user_id,
     device_id,
     row_number() over (
         partition by device_id
@@ -10,4 +10,4 @@ select
     ) as desc_row_num
 from {{ ref("events") }}
 where
-    user_id is not null
+    event_properties.user_id is not null
