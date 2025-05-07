@@ -1,5 +1,5 @@
 select
-    full_session_id,
+    {{ dbt.concat(["device_id", "':'", "session_id"]) }} as full_session_id,
     session_id,
     device_id,
     view_id,
@@ -9,7 +9,7 @@ select
     source_type,
     source_properties.url.full_url as page_url,
     row_number() over (
-        partition by full_session_id
+        partition by {{ dbt.concat(["device_id", "':'", "session_id"]) }}
         order by
             event_time desc,
             updated_time desc,
