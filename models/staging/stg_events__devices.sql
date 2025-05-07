@@ -1,18 +1,18 @@
 select
-    full_session_id,
+    {{ dbt.concat(["device_id", "':'", "session_id"]) }} as full_session_id,
     session_id,
     device_id,
     view_id,
     event_time,
     updated_time,
     processed_time,
-    device_user_agent,
-    device_type,
-    device_operating_system,
-    device_browser,
-    device_browser_version,
+    source_properties.device_user_agent,
+    source_properties.device_type,
+    source_properties.device_operating_system,
+    source_properties.device_browser,
+    source_properties.device_browser_version,
     row_number() over (
-        partition by full_session_id
+        partition by {{ dbt.concat(["device_id", "':'", "session_id"]) }}
         order by
             event_time desc,
             updated_time desc,
