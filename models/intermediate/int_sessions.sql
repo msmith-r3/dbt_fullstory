@@ -37,7 +37,7 @@ left outer join
         users.desc_row_num = 1 and
         events.device_id = users.device_id
 where
-    {{ dbt.concat(["events.device_id", "':'", "events.session_id"]) }} is not null
+    events.device_id is not null and events.session_id is not null
     {# {% if is_incremental() %} #}
     and {{ dbt.cast("events.event_time", api.Column.translate_type("datetime")) }} >= {{ dbt.dateadd(datepart="hour", interval=-1 * var("fullstory_incremental_interval_hours", 7 * 24), from_date_or_timestamp=dbt.current_timestamp()) }}
     {# {% endif %} #}    
