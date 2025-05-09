@@ -1,5 +1,5 @@
 select
-    {{ dbt.concat(["device_id", "':'", "session_id"]) }} as full_session_id,,
+    {{ dbt.concat(["device_id", "':'", "session_id"]) }} as full_session_id,
     session_id,
     device_id,
     view_id,
