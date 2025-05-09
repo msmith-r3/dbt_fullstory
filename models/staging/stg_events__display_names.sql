@@ -6,7 +6,7 @@ select
     event_time,
     updated_time,
     processed_time,
-    event_properties.user_display_name,
+    event_properties.user_display_name::varchar(65535),
     row_number() over (
         partition by {{ dbt.concat(["device_id", "':'", "session_id"]) }}
         order by
