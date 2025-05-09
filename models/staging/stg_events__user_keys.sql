@@ -1,5 +1,5 @@
 select
-    event_properties.user_id as user_id,
+    event_properties.user_id::varchar(65535) as user_id,
     device_id,
     row_number() over (
         partition by device_id
